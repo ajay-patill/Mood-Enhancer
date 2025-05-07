@@ -215,6 +215,8 @@
                 <option value="Anxious">Anxious</option>
                 <option value="Angry">Angry</option>
                 <option value="Motivated">Motivated</option>
+                <option value="Empty">Empty</option>
+                <option value="Confused">Confused</option>
             </select>
         </div>
         <div id="result" class="result"></div>
@@ -280,6 +282,30 @@
                 { quote: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt", explanation: "Dreams fuel motivation when you believe in them.", advice: "Create a vision board to keep your dreams vivid and inspiring." },
                 { quote: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt", explanation: "Motivation thrives when you work with what’s available.", advice: "Start with the resources you have now to build momentum." },
                 { quote: "Act as if what you do makes a difference. It does.", author: "William James", explanation: "Your actions matter and can drive meaningful change.", advice: "Track your progress to see the impact of your efforts and stay motivated." }
+            ],
+            Empty: [
+                { quote: "Man cannot discover new oceans unless he has the courage to lose sight of the shore.", author: "André Gide", explanation: "Feeling empty can signal a need to let go of the familiar to find new meaning.", advice: "Explore a new hobby or experience to spark curiosity and fill the void." },
+                { quote: "The life of man is of no greater duration than the breath of his nostrils.", author: "Plato", explanation: "The fleeting nature of life highlights the urgency to find purpose amidst emptiness.", advice: "Reflect on what matters most to you through journaling to rediscover direction." },
+                { quote: "In the middle of the journey of our life I found myself within a dark wood where the straight way was lost.", author: "Dante Alighieri", explanation: "Emptiness often feels like being lost, but it can be a starting point for self-discovery.", advice: "Take a walk in nature to clear your mind and reconnect with yourself." },
+                { quote: "The eternal silence of these infinite spaces frightens me.", author: "Blaise Pascal", explanation: "Emptiness can stem from confronting the vastness of existence, prompting introspection.", advice: "Meditate for 10 minutes daily to find peace in the present moment." },
+                { quote: "We are here to add what we can to life, not to get what we can from it.", author: "William Osler", explanation: "Emptiness may arise from a lack of contribution; giving can restore meaning.", advice: "Volunteer for a cause you care about to feel a sense of purpose." },
+                { quote: "The heaviest burden is to exist without living.", author: "Victor Hugo", explanation: "Emptiness reflects a life without passion or engagement, urging you to live fully.", advice: "Create a list of things you’ve always wanted to try and start with one." },
+                { quote: "Man is condemned to be free; because once thrown into the world, he is responsible for everything he does.", author: "Jean-Paul Sartre", explanation: "Emptiness can come from the weight of freedom; you must create your own meaning.", advice: "Set a small, meaningful goal to take control of your path." },
+                { quote: "The only way to deal with an unfree world is to become so absolutely free that your very existence is an act of rebellion.", author: "Albert Camus", explanation: "Emptiness can be countered by embracing your freedom to define your life.", advice: "Express yourself through art, writing, or music to reclaim your individuality." },
+                { quote: "What is to give light must endure burning.", author: "Viktor Frankl", explanation: "Finding meaning often requires enduring the pain of emptiness to emerge stronger.", advice: "Read a book on finding purpose, like 'Man’s Search for Meaning,' for inspiration." },
+                { quote: "Life is the art of drawing without an eraser.", author: "John W. Gardner", explanation: "Emptiness may feel like a blank canvas, but every mark you make shapes your story.", advice: "Start a gratitude journal to focus on small moments that bring meaning." }
+            ],
+            Confused: [
+                { quote: "The only thing I know is that I know nothing.", author: "Socrates", explanation: "Confusion is a starting point for wisdom, as it acknowledges the limits of understanding.", advice: "Embrace your confusion by asking questions and seeking knowledge on a topic that intrigues you." },
+                { quote: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle", explanation: "Confusion about identity can be clarified through consistent actions that align with your values.", advice: "Establish a daily routine to build clarity through small, purposeful habits." },
+                { quote: "The world is full of magic things, patiently waiting for our senses to grow sharper.", author: "W.B. Yeats", explanation: "Confusion arises from not yet seeing clearly; clarity comes with patience and awareness.", advice: "Practice mindfulness to sharpen your focus and reduce mental clutter." },
+                { quote: "Not until we are lost do we begin to understand ourselves.", author: "Henry David Thoreau", explanation: "Confusion is a form of being lost, guiding you toward self-discovery.", advice: "Write down your thoughts in a stream-of-consciousness style to uncover what’s causing confusion." },
+                { quote: "The truth is rarely pure and never simple.", author: "Oscar Wilde", explanation: "Confusion often stems from seeking simple answers in a complex world.", advice: "Break down a problem into smaller parts and tackle one at a time to gain clarity." },
+                { quote: "To be is to be perceived.", author: "George Berkeley", explanation: "Confusion about existence can be eased by connecting with others who see and affirm you.", advice: "Talk to a trusted friend about your confusion to gain a new perspective." },
+                { quote: "The eye sees only what the mind is prepared to comprehend.", author: "Henri Bergson", explanation: "Confusion reflects a mind not yet ready to understand; openness leads to insight.", advice: "Read about a topic you’re confused about to expand your mental framework." },
+                { quote: "Life is a mystery to be lived, not a problem to be solved.", author: "Søren Kierkegaard", explanation: "Confusion is part of life’s mystery; embracing it can lead to peace.", advice: "Accept uncertainty by focusing on the present moment through deep breathing." },
+                { quote: "The more I read, the more I acquire, the more certain I am that I know nothing.", author: "Voltaire", explanation: "Confusion grows with knowledge, but it’s a sign of intellectual humility.", advice: "Explore a new subject lightly to enjoy learning without pressure for answers." },
+                { quote: "Man is a mystery. It needs to be unravelled, and if you spend your whole life unravelling it, don’t say that you’ve wasted time.", author: "Fyodor Dostoevsky", explanation: "Confusion is part of the human mystery, worth exploring without fear.", advice: "Reflect on your values and passions to align your actions with your true self." }
             ]
         };
 
@@ -288,7 +314,9 @@
             Sad: "😔💧",
             Anxious: "😓⚡",
             Angry: "😣🔥",
-            Motivated: "💪🚀"
+            Motivated: "💪🚀",
+            Empty: "🌀",
+            Confused: "❓"
         };
 
         function generateMoodEnhancer() {
