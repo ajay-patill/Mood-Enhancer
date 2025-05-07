@@ -1,206 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mood Enhancer</title>
-<style>
-body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-header {
-  background: #0288d1;
-  color: white;
-  width: 100%;
-  padding: 15px 0;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-header h1 {
-  margin: 0;
-  font-size: 28px;
-}
-.container {
-  max-width: 800px;
-  margin: 30px auto;
-  padding: 0 20px;
-  text-align: center;
-}
-.mood-selector {
-  margin-bottom: 30px;
-}
-.mood-selector select {
-  padding: 12px;
-  font-size: 18px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: white;
-  width: 200px;
-  cursor: pointer;
-}
-.result {
-  background: white;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s, transform 0.5s;
-}
-.result.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-.result h2 {
-  color: #01579b;
-  margin: 0 0 15px;
-}
-.result .quote {
-  font-style: italic;
-  color: #333;
-  margin: 0 0 20px;
-  font-size: 20px;
-}
-.result .author {
-  color: #666;
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-.result .explanation, .result .advice {
-  color: #444;
-  line-height: 1.6;
-  margin: 10px 0;
-}
-button {
-  background: #0277bd;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-button:hover {
-  background: #01579b;
-}
-@media (max-width: 600px) {
-  .container {
-    padding: 0 15px;
-  }
-  .result {
-    padding: 20px;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Enhancer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #26a69a; /* Teal for professional calm */
+            --secondary: #ef5350; /* Coral for vibrant energy */
+            --accent: #ab47bc; /* Purple for creativity */
+            --background: #e0f7fa; /* Light cyan background */
+            --text: #263238;
+            --white: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.15);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, var(--background), #b2ebf2);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: gradientShift 15s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: var(--white);
+            width: 100%;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            text-align: center;
+        }
+
+        .mood-selector {
+            margin-bottom: 2.5rem;
+        }
+
+        .mood-selector label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--text);
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .mood-selector select {
+            padding: 0.9rem;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            border: 2px solid var(--primary);
+            background: var(--white);
+            width: 250px;
+            cursor: pointer;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+        }
+
+        .mood-selector select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 8px rgba(171, 71, 188, 0.3);
+            transform: scale(1.02);
+        }
+
+        .result {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 6px 20px var(--shadow);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .result.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .result h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 0 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .result .quote {
+            font-family: 'Open Sans', sans-serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--text);
+            margin: 0 0 1.2rem;
+            line-height: 1.5;
+        }
+
+        .result .author {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .result .explanation,
+        .result .advice {
+            font-size: 1rem;
+            color: var(--text);
+            line-height: 1.7;
+            margin: 1rem 0;
+        }
+
+        .result .explanation strong,
+        .result .advice strong {
+            color: var(--primary);
+        }
+
+        button {
+            background: var(--secondary);
+            color: var(--white);
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background: #e91e63;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .mood-selector select {
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .result {
+                padding: 1.5rem;
+            }
+
+            .result h2 {
+                font-size: 1.6rem;
+            }
+
+            .result .quote {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
-  <h1>Mood Enhancer</h1>
-</header>
-<div class="container">
-  <div class="mood-selector">
-    <label for="mood">How are you feeling today?</label><br>
-    <select id="mood" onchange="generateMoodEnhancer()">
-      <option value="">Select a Mood</option>
-      <option value="Happy">Happy</option>
-      <option value="Sad">Sad</option>
-      <option value="Anxious">Anxious</option>
-      <option value="Angry">Angry</option>
-      <option value="Motivated">Motivated</option>
-    </select>
-  </div>
-  <div id="result" class="result"></div>
-</div>
-<script>
-const moodQuotes = {
-  Happy: [
-    { quote: "Happiness is not something ready made. It comes from your own actions.", author: "Dalai Lama", explanation: "This quote suggests that happiness is a result of your choices and behaviors, not something external handed to you.", advice: "Keep spreading positivity by engaging in acts of kindness or pursuing activities that bring you joy, like hobbies or spending time with loved ones." },
-    { quote: "The only way to find true happiness is to risk being completely cut open.", author: "Chuck Palahniuk", explanation: "True happiness often requires vulnerability and authenticity, embracing your true self.", advice: "Reflect on what makes you genuinely happy and share that with others to deepen your connections." },
-    { quote: "Happiness is when what you think, what you say, and what you do are in harmony.", author: "Mahatma Gandhi", explanation: "Happiness arises from living in alignment with your values and actions.", advice: "Ensure your daily actions reflect your core beliefs to maintain this joyful harmony." },
-    { quote: "The purpose of our lives is to be happy.", author: "Dalai Lama", explanation: "This emphasizes that happiness is a fundamental goal of human existence.", advice: "Prioritize activities and relationships that uplift your spirit." },
-    { quote: "Most folks are as happy as they make up their minds to be.", author: "Abraham Lincoln", explanation: "Happiness is largely a mindset that you can choose to cultivate.", advice: "Focus on gratitude to boost your happiness mindset." },
-    { quote: "Happiness depends upon ourselves.", author: "Aristotle", explanation: "Your happiness is within your control, not dependent on external circumstances.", advice: "Take responsibility for your joy by setting personal goals and celebrating small wins." },
-    { quote: "The greatest happiness you can have is knowing that you do not necessarily require happiness.", author: "William Saroyan", explanation: "True contentment comes from not chasing happiness obsessively.", advice: "Find peace in the present moment instead of always seeking more." },
-    { quote: "Joy is not in things; it is in us.", author: "Richard Wagner", explanation: "Happiness is an internal state, not derived from material possessions.", advice: "Practice mindfulness to tap into your inner joy." },
-    { quote: "Happiness is a warm puppy.", author: "Charles M. Schulz", explanation: "Simple, pure moments can bring profound happiness.", advice: "Seek out small, everyday pleasures like a walk or a cozy moment." },
-    { quote: "There is only one happiness in this life, to love and be loved.", author: "George Sand", explanation: "Love is a key source of happiness, both giving and receiving it.", advice: "Strengthen your relationships by expressing appreciation to those you care about." }
-  ],
-  Sad: [
-    { quote: "The life of man is of no greater duration than the breath of his nostrils.", author: "Plato", explanation: "This reminds us of life's fleeting nature, putting sadness into perspective.", advice: "Acknowledge your sadness, but focus on the present moment through journaling or talking to a friend." },
-    { quote: "Tears are words that need to be written.", author: "Paulo Coelho", explanation: "Sadness can be expressed and processed through creative outlets.", advice: "Write down your feelings or create art to release your emotions." },
-    { quote: "What need is there to weep over parts of life? The whole of it calls for tears.", author: "Lucius Annaeus Seneca", explanation: "Sadness is a universal human experience, not something to avoid.", advice: "Accept your sadness as part of life and seek comfort in shared human experiences." },
-    { quote: "The wound is the place where the light enters you.", author: "Rumi", explanation: "Pain and sadness can lead to growth and enlightenment.", advice: "Reflect on what your sadness is teaching you and use it to grow stronger." },
-    { quote: "There is no despair so absolute as that which comes with the first moments of our first great sorrow.", author: "George Eliot", explanation: "Initial sadness feels overwhelming, but it lessens with time.", advice: "Give yourself time to heal and seek support from loved ones." },
-    { quote: "Every man has his secret sorrows which the world knows not.", author: "Henry Wadsworth Longfellow", explanation: "Everyone carries hidden pain, so you're not alone in your sadness.", advice: "Connect with others who may understand your feelings to feel less isolated." },
-    { quote: "Sorrow prepares you for joy.", author: "Rumi", explanation: "Sadness can make joyful moments more meaningful.", advice: "Look forward to brighter days by engaging in small, uplifting activities." },
-    { quote: "The heart was made to be broken.", author: "Oscar Wilde", explanation: "Sadness is a natural part of loving and living deeply.", advice: "Embrace your emotions and find healing through self-compassion." },
-    { quote: "We must understand that sadness is an ocean, and sometimes we drown, while other days we are forced to swim.", author: "R.M. Drake", explanation: "Sadness ebbs and flows like an ocean, not a permanent state.", advice: "Ride the waves of sadness by practicing self-care and patience." },
-    { quote: "To have felt too much is to end in feeling nothing.", author: "Dorothy Thompson", explanation: "Overwhelming sadness can lead to numbness, but processing it helps.", advice: "Talk to someone trusted or a professional to work through your feelings." }
-  ],
-  Anxious: [
-    { quote: "You must have chaos within you to give birth to a dancing star.", author: "Friedrich Nietzsche", explanation: "Anxiety can be a source of creativity and transformation.", advice: "Channel your anxious energy into a creative project or physical activity." },
-    { quote: "The life you have led doesn’t need to be the only life you have.", author: "Anna Quindlen", explanation: "Anxiety about the future can be eased by embracing change.", advice: "Take small steps toward a new goal to reduce feelings of being stuck." },
-    { quote: "Do not anticipate trouble, or worry about what may never happen.", author: "Benjamin Franklin", explanation: "Anxiety often stems from imagining worst-case scenarios.", advice: "Practice mindfulness or deep breathing to stay grounded in the present." },
-    { quote: "The only way out is through.", author: "Robert Frost", explanation: "Facing anxiety directly can lead to overcoming it.", advice: "Confront your worries by writing them down and addressing them one by one." },
-    { quote: "He who fears he shall suffer, already suffers what he fears.", author: "Michel de Montaigne", explanation: "Anxiety itself can be more painful than the thing feared.", advice: "Challenge your anxious thoughts by questioning their validity." },
-    { quote: "We suffer more in imagination than in reality.", author: "Seneca", explanation: "Anxiety amplifies fears beyond what’s real.", advice: "Use grounding techniques like focusing on your senses to calm your mind." },
-    { quote: "You don’t have to control your thoughts. You just have to stop letting them control you.", author: "Dan Millman", explanation: "Anxiety loses power when you observe thoughts without judgment.", advice: "Try meditation to detach from anxious thoughts." },
-    { quote: "Anxiety does not empty tomorrow of its sorrows, but only empties today of its strength.", author: "Charles Spurgeon", explanation: "Anxiety drains your energy without solving problems.", advice: "Focus on one task at a time to regain control and reduce overwhelm." },
-    { quote: "Nothing diminishes anxiety faster than action.", author: "Walter Anderson", explanation: "Taking action can break the cycle of anxious thoughts.", advice: "Make a small plan and act on it to feel more empowered." },
-    { quote: "The greatest weapon against stress is our ability to choose one thought over another.", author: "William James", explanation: "You can shift your focus to reduce anxiety.", advice: "Replace anxious thoughts with positive affirmations or gratitude." }
-  ],
-  Angry: [
-    { quote: "Holding onto anger is like drinking poison and expecting the other person to die.", author: "Buddha", explanation: "Anger harms you more than the target of your frustration.", advice: "Release anger through deep breathing or writing a letter you don’t send." },
-    { quote: "For every minute you are angry, you lose sixty seconds of happiness.", author: "Ralph Waldo Emerson", explanation: "Anger robs you of joy in the present moment.", advice: "Shift your focus to something that brings you peace, like music or a walk." },
-    { quote: "You will not be punished for your anger, you will be punished by your anger.", author: "Buddha", explanation: "Anger’s consequences are internal, affecting your well-being.", advice: "Practice forgiveness, even if just for your own peace of mind." },
-    { quote: "Anger is an acid that can do more harm to the vessel in which it is stored than to anything on which it is poured.", author: "Mark Twain", explanation: "Anger damages you more than others.", advice: "Engage in physical activity like running to burn off angry energy." },
-    { quote: "The best fighter is never angry.", author: "Lao Tzu", explanation: "True strength comes from calmness, not rage.", advice: "Pause and count to ten before reacting to anger." },
-    { quote: "Speak when you are angry and you will make the best speech you will ever regret.", author: "Ambrose Bierce", explanation: "Anger can lead to regrettable actions.", advice: "Take a moment to cool down before responding in anger." },
-    { quote: "Anger does not solve anything; it builds nothing.", author: "Thomas Merton", explanation: "Anger is destructive rather than constructive.", advice: "Redirect your energy into solving the problem calmly." },
-    { quote: "When angry, count to ten before you speak; if very angry, a hundred.", author: "Thomas Jefferson", explanation: "Pausing helps you respond thoughtfully, not impulsively.", advice: "Use a timer or breathing exercise to calm down before acting." },
-    { quote: "Anger is a wind which blows out the lamp of the mind.", author: "Robert G. Ingersoll", explanation: "Anger clouds your judgment and clarity.", advice: "Meditate or reflect to regain mental clarity." },
-    { quote: "Bitterness is like cancer. It eats upon the host.", author: "Maya Angelou", explanation: "Holding onto anger fosters bitterness that harms you.", advice: "Practice letting go through journaling or talking to someone." }
-  ],
-  Motivated: [
-    { quote: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius", explanation: "Persistence is key to success, no matter the pace.", advice: "Keep your motivation by setting small, achievable goals and celebrating progress." },
-    { quote: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt", explanation: "Self-doubt can hinder your potential.", advice: "Write down your strengths to boost confidence and stay motivated." },
-    { quote: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis", explanation: "Motivation can thrive at any stage of life.", advice: "Start a new project or learn a new skill to fuel your drive." },
-    { quote: "The journey of a thousand miles begins with a single step.", author: "Lao Tzu", explanation: "Every big achievement starts with small actions.", advice: "Take one small step today toward your goal to maintain momentum." },
-    { quote: "What you do today can improve all your tomorrows.", author: "Ralph Marston", explanation: "Today’s efforts shape your future success.", advice: "Create a daily to-do list to stay focused and motivated." },
-    { quote: "Success is not the absence of obstacles, but the courage to push through them.", author: "Josh Shipp", explanation: "Motivation requires perseverance through challenges.", advice: "Visualize overcoming obstacles to stay committed." },
-    { quote: "Believe you can and you’re halfway there.", author: "Theodore Roosevelt", explanation: "Self-belief is a powerful motivator.", advice: "Affirm your abilities daily to keep your motivation high." },
-    { quote: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt", explanation: "Dreams fuel motivation when you believe in them.", advice: "Create a vision board to keep your dreams vivid and inspiring." },
-    { quote: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt", explanation: "Motivation thrives when you work with what’s available.", advice: "Start with the resources you have now to build momentum." },
-    { quote: "Act as if what you do makes a difference. It does.", author: "William James", explanation: "Your actions matter and can drive meaningful change.", advice: "Track your progress to see the impact of your efforts and stay motivated." }
-  ]
-};
-function generateMoodEnhancer() {
-  const mood = document.getElementById('mood').value;
-  const resultDiv = document.getElementById('result');
-  if (!mood) {
-    resultDiv.innerHTML = '';
-    resultDiv.classList.remove('show');
-    return;
-  }
-  const quotes = moodQuotes[mood];
-  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-  resultDiv.innerHTML = `
-    <h2>${mood} Mood</h2>
-    <p class="quote">"${randomQuote.quote}"</p>
-    <p class="author">— ${randomQuote.author}</p>
-    <p class="explanation"><strong>Explanation:</strong> ${randomQuote.explanation}</p>
-    <p class="advice"><strong>Advice:</strong> ${randomQuote.advice}</p>
-    <button onclick="generateMoodEnhancer()">Generate Another</button>
-  `;
-  resultDiv.classList.add('show');
-}
-</script>
+    <header>
+        <h1>Mood Enhancer</h1>
+    </header>
+    <div class="container">
+        <div class="mood-selector">
+            <label for="mood" aria-label="Select your current mood">How are you feeling today?</label>
+            <select id="mood" onchange="generateMoodEnhancer()" aria-label="Mood selection">
+                <option value="">Select a Mood</option>
+                <option value="Happy">Happy</option>
+                <option value="Sad">Sad</option>
+                <option value="Anxious">Anxious</option>
+                <option value="Angry">Angry</option>
+                <option value="Motivated">Motivated</option>
+            </select>
+        </div>
+        <div id="result" class="result"></div>
+    </div>
+    <script>
+        const moodQuotes = {
+            Happy: [
+                { quote: "Happiness is not something ready made. It comes from your own actions.", author: "Dalai Lama", explanation: "This quote suggests that happiness is a result of your choices and behaviors, not something external handed to you.", advice: "Keep spreading positivity by engaging in acts of kindness or pursuing activities that bring you joy, like hobbies or spending time with loved ones." },
+                { quote: "The only way to find true happiness is to risk being completely cut open.", author: "Chuck Palahniuk", explanation: "True happiness often requires vulnerability and authenticity, embracing your true self.", advice: "Reflect on what makes you genuinely happy and share that with others to deepen your connections." },
+                { quote: "Happiness is when what you think, what you say, and what you do are in harmony.", author: "Mahatma Gandhi", explanation: "Happiness arises from living in alignment with your values and actions.", advice: "Ensure your daily actions reflect your core beliefs to maintain this joyful harmony." },
+                { quote: "The purpose of our lives is to be happy.", author: "Dalai Lama", explanation: "This emphasizes that happiness is a fundamental goal of human existence.", advice: "Prioritize activities and relationships that uplift your spirit." },
+                { quote: "Most folks are as happy as they make up their minds to be.", author: "Abraham Lincoln", explanation: "Happiness is largely a mindset that you can choose to cultivate.", advice: "Focus on gratitude to boost your happiness mindset." },
+                { quote: "Happiness depends upon ourselves.", author: "Aristotle", explanation: "Your happiness is within your control, not dependent on external circumstances.", advice: "Take responsibility for your joy by setting personal goals and celebrating small wins." },
+                { quote: "The greatest happiness you can have is knowing that you do not necessarily require happiness.", author: "William Saroyan", explanation: "True contentment comes from not chasing happiness obsessively.", advice: "Find peace in the present moment instead of always seeking more." },
+                { quote: "Joy is not in things; it is in us.", author: "Richard Wagner", explanation: "Happiness is an internal state, not derived from material possessions.", advice: "Practice mindfulness to tap into your inner joy." },
+                { quote: "Happiness is a warm puppy.", author: "Charles M. Schulz", explanation: "Simple, pure moments can bring profound happiness.", advice: "Seek out small, everyday pleasures like a walk or a cozy moment." },
+                { quote: "There is only one happiness in this life, to love and be loved.", author: "George Sand", explanation: "Love is a key source of happiness, both giving and receiving it.", advice: "Strengthen your relationships by expressing appreciation to those you care about." }
+            ],
+            Sad: [
+                { quote: "The life of man is of no greater duration than the breath of his nostrils.", author: "Plato", explanation: "This reminds us of life's fleeting nature, putting sadness into perspective.", advice: "Acknowledge your sadness, but focus on the present moment through journaling or talking to a friend." },
+                { quote: "Tears are words that need to be written.", author: "Paulo Coelho", explanation: "Sadness can be expressed and processed through creative outlets.", advice: "Write down your feelings or create art to release your emotions." },
+                { quote: "What need is there to weep over parts of life? The whole of it calls for tears.", author: "Lucius Annaeus Seneca", explanation: "Sadness is a universal human experience, not something to avoid.", advice: "Accept your sadness as part of life and seek comfort in shared human experiences." },
+                { quote: "The wound is the place where the light enters you.", author: "Rumi", explanation: "Pain and sadness can lead to growth and enlightenment.", advice: "Reflect on what your sadness is teaching you and use it to grow stronger." },
+                { quote: "There is no despair so absolute as that which comes with the first moments of our first great sorrow.", author: "George Eliot", explanation: "Initial sadness feels overwhelming, but it lessens with time.", advice: "Give yourself time to heal and seek support from loved ones." },
+                { quote: "Every man has his secret sorrows which the world knows not.", author: "Henry Wadsworth Longfellow", explanation: "Everyone carries hidden pain, so you're not alone in your sadness.", advice: "Connect with others who may understand your feelings to feel less isolated." },
+                { quote: "Sorrow prepares you for joy.", author: "Rumi", explanation: "Sadness can make joyful moments more meaningful.", advice: "Look forward to brighter days by engaging in small, uplifting activities." },
+                { quote: "The heart was made to be broken.", author: "Oscar Wilde", explanation: "Sadness is a natural part of loving and living deeply.", advice: "Embrace your emotions and find healing through self-compassion." },
+                { quote: "We must understand that sadness is an ocean, and sometimes we drown, while other days we are forced to swim.", author: "R.M. Drake", explanation: "Sadness ebbs and flows like an ocean, not a permanent state.", advice: "Ride the waves of sadness by practicing self-care and patience." },
+                { quote: "To have felt too much is to end in feeling nothing.", author: "Dorothy Thompson", explanation: "Overwhelming sadness can lead to numbness, but processing it helps.", advice: "Talk to someone trusted or a professional to work through your feelings." }
+            ],
+            Anxious: [
+                { quote: "You must have chaos within you to give birth to a dancing star.", author: "Friedrich Nietzsche", explanation: "Anxiety can be a source of creativity and transformation.", advice: "Channel your anxious energy into a creative project or physical activity." },
+                { quote: "The life you have led doesn’t need to be the only life you have.", author: "Anna Quindlen", explanation: "Anxiety about the future can be eased by embracing change.", advice: "Take small steps toward a new goal to reduce feelings of being stuck." },
+                { quote: "Do not anticipate trouble, or worry about what may never happen.", author: "Benjamin Franklin", explanation: "Anxiety often stems from imagining worst-case scenarios.", advice: "Practice mindfulness or deep breathing to stay grounded in the present." },
+                { quote: "The only way out is through.", author: "Robert Frost", explanation: "Facing anxiety directly can lead to overcoming it.", advice: "Confront your worries by writing them down and addressing them one by one." },
+                { quote: "He who fears he shall suffer, already suffers what he fears.", author: "Michel de Montaigne", explanation: "Anxiety itself can be more painful than the thing feared.", advice: "Challenge your anxious thoughts by questioning their validity." },
+                { quote: "We suffer more in imagination than in reality.", author: "Seneca", explanation: "Anxiety amplifies fears beyond what’s real.", advice: "Use grounding techniques like focusing on your senses to calm your mind." },
+                { quote: "You don’t have to control your thoughts. You just have to stop letting them control you.", author: "Dan Millman", explanation: "Anxiety loses power when you observe thoughts without judgment.", advice: "Try meditation to detach from anxious thoughts." },
+                { quote: "Anxiety does not empty tomorrow of its sorrows, but only empties today of its strength.", author: "Charles Spurgeon", explanation: "Anxiety drains your energy without solving problems.", advice: "Focus on one task at a time to regain control and reduce overwhelm." },
+                { quote: "Nothing diminishes anxiety faster than action.", author: "Walter Anderson", explanation: "Taking action can break the cycle of anxious thoughts.", advice: "Make a small plan and act on it to feel more empowered." },
+                { quote: "The greatest weapon against stress is our ability to choose one thought over another.", author: "William James", explanation: "You can shift your focus to reduce anxiety.", advice: "Replace anxious thoughts with positive affirmations or gratitude." }
+            ],
+            Angry: [
+                { quote: "Holding onto anger is like drinking poison and expecting the other person to die.", author: "Buddha", explanation: "Anger harms you more than the target of your frustration.", advice: "Release anger through deep breathing or writing a letter you don’t send." },
+                { quote: "For every minute you are angry, you lose sixty seconds of happiness.", author: "Ralph Waldo Emerson", explanation: "Anger robs you of joy in the present moment.", advice: "Shift your focus to something that brings you peace, like music or a walk." },
+                { quote: "You will not be punished for your anger, you will be punished by your anger.", author: "Buddha", explanation: "Anger’s consequences are internal, affecting your well-being.", advice: "Practice forgiveness, even if just for your own peace of mind." },
+                { quote: "Anger is an acid that can do more harm to the vessel in which it is stored than to anything on which it is poured.", author: "Mark Twain", explanation: "Anger damages you more than others.", advice: "Engage in physical activity like running to burn off angry energy." },
+                { quote: "The best fighter is never angry.", author: "Lao Tzu", explanation: "True strength comes from calmness, not rage.", advice: "Pause and count to ten before reacting to anger." },
+                { quote: "Speak when you are angry and you will make the best speech you will ever regret.", author: "Ambrose Bierce", explanation: "Anger can lead to regrettable actions.", advice: "Take a moment to cool down before responding in anger." },
+                { quote: "Anger does not solve anything; it builds nothing.", author: "Thomas Merton", explanation: "Anger is destructive rather than constructive.", advice: "Redirect your energy into solving the problem calmly." },
+                { quote: "When angry, count to ten before you speak; if very angry, a hundred.", author: "Thomas Jefferson", explanation: "Pausing helps you respond thoughtfully, not impulsively.", advice: "Use a timer or breathing exercise to calm down before acting." },
+                { quote: "Anger is a wind which blows out the lamp of the mind.", author: "Robert G. Ingersoll", explanation: "Anger clouds your judgment and clarity.", advice: "Meditate or reflect to regain mental clarity." },
+                { quote: "Bitterness is like cancer. It eats upon the host.", author: "Maya Angelou", explanation: "Holding onto anger fosters bitterness that harms you.", advice: "Practice letting go through journaling or talking to someone." }
+            ],
+            Motivated: [
+                { quote: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius", explanation: "Persistence is key to success, no matter the pace.", advice: "Keep your motivation by setting small, achievable goals and celebrating progress." },
+                { quote: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt", explanation: "Self-doubt can hinder your potential.", advice: "Write down your strengths to boost confidence and stay motivated." },
+                { quote: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis", explanation: "Motivation can thrive at any stage of life.", advice: "Start a new project or learn a new skill to fuel your drive." },
+                { quote: "The journey of a thousand miles begins with a single step.", author: "Lao Tzu", explanation: "Every big achievement starts with small actions.", advice: "Take one small step today toward your goal to maintain momentum." },
+                { quote: "What you do today can improve all your tomorrows.", author: "Ralph Marston", explanation: "Today’s efforts shape your future success.", advice: "Create a daily to-do list to stay focused and motivated." },
+                { quote: "Success is not the absence of obstacles, but the courage to push through them.", author: "Josh Shipp", explanation: "Motivation requires perseverance through challenges.", advice: "Visualize overcoming obstacles to stay committed." },
+                { quote: "Believe you can and you’re halfway there.", author: "Theodore Roosevelt", explanation: "Self-belief is a powerful motivator.", advice: "Affirm your abilities daily to keep your motivation high." },
+                { quote: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt", explanation: "Dreams fuel motivation when you believe in them.", advice: "Create a vision board to keep your dreams vivid and inspiring." },
+                { quote: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt", explanation: "Motivation thrives when you work with what’s available.", advice: "Start with the resources you have now to build momentum." },
+                { quote: "Act as if what you do makes a difference. It does.", author: "William James", explanation: "Your actions matter and can drive meaningful change.", advice: "Track your progress to see the impact of your efforts and stay motivated." }
+            ]
+        };
+
+        const moodEmojis = {
+            Happy: "😊✨",
+            Sad: "😔💧",
+            Anxious: "😓⚡",
+            Angry: "😣🔥",
+            Motivated: "💪🚀"
+        };
+
+        function generateMoodEnhancer() {
+            const mood = document.getElementById('mood').value;
+            const resultDiv = document.getElementById('result');
+            if (!mood) {
+                resultDiv.innerHTML = '';
+                resultDiv.classList.remove('show');
+                return;
+            }
+            const quotes = moodQuotes[mood];
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            resultDiv.innerHTML = `
+                <h2>${mood} Mood <span>${moodEmojis[mood]}</span></h2>
+                <p class="quote">"${randomQuote.quote}"</p>
+                <p class="author">— ${randomQuote.author}</p>
+                <p class="explanation"><strong>Explanation:</strong> ${randomQuote.explanation}</p>
+                <p class="advice"><strong>Advice:</strong> ${randomQuote.advice}</p>
+                <button onclick="generateMoodEnhancer()">Generate Another</button>
+            `;
+            resultDiv.classList.add('show');
+        }
+    </script>
 </body>
 </html>
